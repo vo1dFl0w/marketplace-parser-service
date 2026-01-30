@@ -1,0 +1,78 @@
+all: false
+formatter: goimports
+log-level: info
+template: testify
+packages:
+  # usecase mocks
+  github.com/vo1dFl0w/marketplace-parser-service/internal/usecase:
+    interfaces:
+      ParserService:
+        config:
+          dir: "internal/test/mocks"
+          pkgname: "mocks"
+          structname: "ParserServiceMock"
+          filename: "parser_service_mock.go"
+
+  # repository mocks
+  github.com/vo1dFl0w/marketplace-parser-service/internal/repository:
+    interfaces:
+      SearchRepository:
+        config:
+          dir: "internal/test/mocks"
+          pkgname: "mocks"
+          structname: "SearchRepositoryMock"
+          filename: "search_repository_mock.go"
+      BrowserRepository:
+        config:
+          dir: "internal/test/mocks"
+          pkgname: "mocks"
+          structname: "BrowserRepositoryMock"
+          filename: "browser_repository_mock.go"
+      Element:
+        config:
+          dir: "internal/test/mocks"
+          pkgname: "mocks"
+          structname: "ElementMock"
+          filename: "element_mock.go"
+      Page:
+        config:
+          dir: "internal/test/mocks"
+          pkgname: "mocks"
+          structname: "PageMock"
+          filename: "page_mock.go"
+
+  # parsers mocks
+  github.com/vo1dFl0w/marketplace-parser-service/internal/adapters/parsers:
+    interfaces:
+      WildberriesParser:
+        config:
+          dir: "internal/test/mocks"
+          pkgname: "mocks"
+          structname: WildberriesParserMock
+          filename: "wildberries_parser_mock.go"
+      OzonParser:
+        config:
+          dir: "internal/test/mocks"
+          pkgname: "mocks"
+          structname: "OzonParserMock"
+          filename: "ozon_parser_mock.go"
+
+  # browser mocks
+  github.com/vo1dFl0w/marketplace-parser-service/internal/adapters/browser:
+    interfaces:
+      Browser:
+        config:
+          dir: "internal/test/mocks"
+          pkgname: "mocks"
+          structname: "BrowserMock"
+          filename: "browser_mock.go"
+
+  # logger mock
+  github.com/vo1dFl0w/marketplace-parser-service/pkg/logger:
+    interfaces:
+      Logger:
+        config:
+          dir: "internal/test/mocks"
+          pkgname: "mocks"
+          structname: "LoggerMock"
+          filename: "logger_mock.go"

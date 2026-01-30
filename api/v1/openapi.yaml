@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: "Specification for marketplace parser service."
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+
+package: api
+generate:
+  std-http-server: true
+  models: true
+output: gen.go
+
+paths:
+  /api/v1/marketplace-parser-service/products/search:
+    get:
+      summary: "Search products."
+      description: "Search for products by name and price range."
+      parameters:
+        - name: name
+          in: query
+          description: "Full or partial name of the product being searched for."
+          required: true
+          schema:
+            type: string
+            example: "juicer"
+        - name: price_from
+          in: query
+          description: "Lower price limit in rubles."
+          required: false
+          schema:
+            type: number
+            example: 0.0
+        - name: price_to
+          in: query
+          description: "Upper price limit in rubles."
+          required: false
+          schema:
+            type: number
+            example: 1000.0
+      responses:
+        '200':
+          description: "Success in getting a list of products with the given parameters."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchProductsResponse'
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '499':
+          description: "Client Closed Request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: "Gateway Timeout"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+        link:
+          type: string
+        price:
+          type: number
+        rating:
+          type: number
+        reviewsCount:
+          type: integer
+      required:
+        - name
+        - link
+        - price
+        - rating
+        - reviewsCount
+
+    SearchProductsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Product'
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+      required:
+        - status
+        - message

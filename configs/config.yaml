@@ -1,0 +1,32 @@
+server:
+  env: "local"
+  http_addr: # http_addr from .env
+  request_timeout: 30s
+  wb_config:
+    base_url: "https://www.wildberries.ru"
+    close_button_selector: 'button[aria-label="Close"]'
+    search_bar_selector: "#searchInput"
+    items_selector: ".product-card__wrapper"
+    link_selector: "a.product-card__link"
+    price_selector: "ins.price__lower-price"
+    rating_selector: "span.address-rate-mini"
+    reviews_selector: "span.product-card__count"
+  ozon_config:
+    base_url: "https://www.ozon.ru"
+    search_bar_selector: "input[name='text']"
+    items_selector: ".tile-root"
+    link_selector: 'a[href*="/product/"]'
+    price_selector: ".c35_3_12-a1.tsHeadline500Medium"
+    product_name_selector: 'a[href*="/product/"] span.tsBody500Medium'
+    rating_selector: ".i9j_24.tsBodyMBold span.p6b3_0_6-a4 > span"
+    reviews_selector: './/span[contains(text(), "отзыв")]'
+
+browser:
+  ws_url: # ws_url from .env
+  referer: "https://google.com"
+  accept_language: "ru-RU,ru;q=0.9"
+  dom_stable_duration: 2500ms
+  dom_stable_diff: 0.85
+
+options:
+  logger_time_format: "02-01-2006 15:04:05"
