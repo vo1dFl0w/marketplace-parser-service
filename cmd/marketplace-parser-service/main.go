@@ -62,7 +62,8 @@ func run(ctx context.Context) error {
 		return fmt.Errorf("new server: %w", err)
 	}
 
-	withMiddlewares := handler.RequestTimeoutMiddleware(handler.LoggerMiddleware(srv))
+	// CORS middleware должен быть первым в цепочке
+	withMiddlewares := handler.CORSMiddleware(handler.RequestTimeoutMiddleware(handler.LoggerMiddleware(srv)))
 
 	httpServer := &http.Server{
 		Addr:    cfg.Server.HTTPAddr,
